@@ -14,8 +14,6 @@ cors = CORS(app, resources={r"/save-high-score": {"origins": "https://minesweepe
 @app.route('/high-scores')
 def get_high_scores():
   my_scores = jsonify_high_scores()
-  app.logger.debug(my_scores)
-  
   return jsonify(my_scores)
 
 # Save a High Score
@@ -40,15 +38,11 @@ def save_high_score():
       'message': 'Error, unable to process request'
     })
 
-
 def jsonify_high_scores():
-
   scores_to_return = []
-
   for s in high_scores:
     scores_to_return.append(s.to_json())
-
   return scores_to_return
-  
-  
-  # return list(map(lambda score: score.to_json, high_scores))
+
+if __name__ == '__main__':
+	app.run(host = '0.0.0.0', port = 80, debug = True)
